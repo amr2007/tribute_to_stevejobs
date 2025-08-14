@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://photos5.appleinsider.com/gallery/47670-93100-000-lead-Apple-Logo-xl.jpg">
+    <title>Steve Jobs – Think Different</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Animated gradient background */
+        body {
+            background: linear-gradient(120deg, #f5f5f7 0%, #e0e7ff 100%);
+            background-size: 200% 200%;
+            animation: bgMove 12s ease-in-out infinite;
+        }
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating shapes */
+        .floating-shape {
+            position: fixed;
+            z-index: 0;
+            opacity: 0.12;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: floatShape 16s linear infinite;
+        }
+        .floating-shape.shape1 { width: 180px; height: 180px; background: #0071e3; top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-shape.shape2 { width: 120px; height: 120px; background: #ffd700; top: 60%; left: 80%; animation-delay: 4s; }
+        .floating-shape.shape3 { width: 90px; height: 90px; background: #ff512f; top: 80%; left: 10%; animation-delay: 8s; }
+        @keyframes floatShape {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-40px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        /* Section fade-in animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+        }
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Blockquote style for quotes */
+        blockquote {
+            margin: 32px auto;
+            padding: 24px 32px;
+            max-width: 600px;
+            background: linear-gradient(90deg, #fffbe6 60%, #e0e7ff 100%);
+            border-left: 6px solid #ffd700;
+            border-radius: 16px;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #333;
+            box-shadow: 0 2px 16px #ffd70022;
+            position: relative;
+        }
+        blockquote:before {
+            content: '\201C';
+            font-size: 2.5rem;
+            color: #ffd700;
+            position: absolute;
+            left: 16px; top: 8px;
+        }
+        blockquote cite {
+            display: block;
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #888;
+            text-align: right;
+        }
+
+        /* Interactive timeline */
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            gap: 32px;
+            padding: 24px 0 32px 0;
+            margin-bottom: 32px;
+            scrollbar-width: thin;
+        }
+        .timeline-event {
+            min-width: 180px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #0071e311;
+            padding: 16px 18px;
+            border-left: 4px solid #0071e3;
+            transition: box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+        .timeline-event.active, .timeline-event:hover {
+            border-color: #ffd700;
+            box-shadow: 0 4px 24px #ffd70033;
+        }
+        .timeline-event .year {
+            font-weight: bold;
+            color: #0071e3;
+            font-size: 1.1rem;
+        }
+        .timeline-event .desc {
+            font-size: 0.98rem;
+            color: #222;
+            margin-top: 6px;
+        }
+
+        /* Social icons */
+        .social-icons {
+            margin: 18px 0 0 0;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+        }
+        .social-icons a {
+            color: #0071e3;
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icons a:hover {
+            color: #ffd700;
+            transform: scale(1.18) rotate(-8deg);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            background: #e0e7ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(120deg, #0071e3 0%, #ffd700 100%);
+            border-radius: 8px;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 700px) {
+            main {
+                padding: 10px;
+            }
+            .premium-video-wrapper iframe {
+                width: 98vw;
+                height: 56vw;
+                min-width: 0;
+                min-height: 0;
+                max-width: 100vw;
+                max-height: 60vw;
+            }
+            .timeline {
+                gap: 12px;
+            }
+            .timeline-event {
+                min-width: 140px;
+                padding: 10px 8px;
+            }
+        }
+
+        /* Animated footer */
+        footer {
+            background: linear-gradient(90deg, #e0e7ff 0%, #fffbe6 100%);
+            animation: footerAnim 8s linear infinite alternate;
+            background-size: 200% 100%;
+        }
+        @keyframes footerAnim {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 0%; }
+        }
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #000;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header h3 {
+            font-weight: 400;
+            color: #555;
+        }
+
+        header img {
+            border-radius: 50%;
+            margin: 20px 0;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        header img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+        }
+
+        a {
+            text-decoration: none;
+            color: #0071e3;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #005bb5;
+        }
+
+        main {
+            max-width: 800px;
+            margin: auto;
+            text-align: left;
+            animation: fadeUp 1.5s ease-in-out;
+        }
+
+        main h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        main h3 {
+            margin-top: 20px;
+            color: #111;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .premium-video-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(218,165,32,0.18), 0 2px 16px 0 rgba(0,0,0,0.12);
+            border: 2.5px solid #ffd700cc;
+            position: relative;
+            max-width: 580px;
+            overflow: hidden;
+            transition: box-shadow 0.4s, border-color 0.4s;
+        }
+        .premium-video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 18px;
+            pointer-events: none;
+            background: linear-gradient(120deg, rgba(255,215,0,0.18) 0%, rgba(255,255,255,0.08) 100%);
+            z-index: 2;
+        }
+        .premium-video-wrapper:hover {
+            box-shadow: 0 0 32px 8px #ffd70088, 0 8px 32px 0 rgba(218,165,32,0.18);
+            border-color: #fffbe6;
+        }
+        .premium-video-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -60px; left: -60px;
+            width: 120px; height: 120px;
+            background: linear-gradient(120deg, #fffbe6 0%, #ffd700 100%);
+            opacity: 0.18;
+            filter: blur(24px);
+            border-radius: 50%;
+            z-index: 1;
+            animation: shine 2.5s linear infinite;
+        }
+        @keyframes shine {
+            0% { left: -60px; top: -60px; opacity: 0.18; }
+            60% { left: 80%; top: 60%; opacity: 0.28; }
+            100% { left: 110%; top: 110%; opacity: 0.18; }
+        }
+        .premium-video-wrapper iframe {
+            border-radius: 12px;
+            border: none;
+            z-index: 3;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+            background: transparent;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #555;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        footer a {
+            color: #0071e3;
+        }
+
+        footer a:hover {
+            color: #005bb5;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+    <header>
+    <h1 class="typing" data-text="Steve Jobs (1955–2011)"></h1>
+        <script>
+        // Typing effect for all headings (h1, h2, h3) on scroll into view
+        function typingEffect(element, text, speed = 90) {
+            let idx = 0;
+            function type() {
+                if (idx <= text.length) {
+                    element.textContent = text.slice(0, idx);
+                    idx++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing-cursor');
+                }
+            }
+            type();
+        }
+
+        function setupTypingHeadings() {
+            // Replace all h1, h2, h3 with .typing class and data-text
+            document.querySelectorAll('h1.typing, h2.typing, h3.typing').forEach(h => {
+                h.textContent = '';
+                h.classList.add('typing-cursor');
+            });
+
+            const observer = new window.IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        if (!el.dataset.typed) {
+                            typingEffect(el, el.dataset.text);
+                            el.dataset.typed = 'true';
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('h1.typing, h2.typing, h3.typing').forEach(h => {
+                observer.observe(h);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Add .typing and data-text to all h2, h3 in main
+            document.querySelectorAll('main h2, main h3').forEach(h => {
+                h.classList.add('typing');
+                h.setAttribute('data-text', h.textContent);
+                h.textContent = '';
+                h.classList.add('typing-cursor');
+            });
+            setupTypingHeadings();
+        });
+        </script>
+        <style>
+        /* Typing effect cursor for headings */
+        .typing-cursor {
+            border-right: 2px solid #0071e3;
+            padding-right: 4px;
+            white-space: nowrap;
+            animation: blink-cursor 0.8s steps(1) infinite;
+        }
+        @keyframes blink-cursor {
+            0%, 100% { border-color: #0071e3; }
+            50% { border-color: transparent; }
+        }
+        </style>
+        <a href="https://www.apple.com/stevejobs/">
+            <h3>Discover the legacy that inspires millions</h3>
+        <img src="https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_1080,q_100,w_1080/v1/gcs/platform-data-startupgrind/events/steve-jobs.jpg"
+            width="200" alt="steve jobs pic"></a>
+        <h3>The man who changed the way we think about technology.</h3>
+        <hr>
+    </header>
+    <main>
+        <blockquote>
+            "Innovation distinguishes between a leader and a follower."
+            <cite>– Steve Jobs</cite>
+        </blockquote>
+
+        <div class="timeline" id="timeline">
+            <!-- Timeline events will be injected by JS -->
+        </div>
+        <h2>The Legendary Journey of Steve Jobs</h2>
+        <h3>1955 – Born</h3>
+        <p>Steve Jobs was born on February 24, 1955, in San Francisco. He was adopted shortly after by Paul and Clara
+            Jobs and grew up in Mountain View, California.</p>
+
+        <h3>1972 – Reed College & Departure</h3>
+        <p>Jobs enrolled at Reed College in Portland, Oregon, but dropped out after one semester. He continued auditing
+            a calligraphy class, which later influenced Apple’s elegant typography.</p>
+
+        <h3>1974 – Atari & Homebrew Club</h3>
+        <p>Jobs worked briefly at Atari and began attending meetings of the Homebrew Computer Club, where he reconnected
+            with Steve Wozniak and the world of early computing enthusiasts.</p>
+
+        <h3>1976 – Co-founds Apple</h3>
+        <p>In April, Jobs co-founded Apple Computer (with Wozniak and Ronald Wayne) in his family’s garage. They
+            released the Apple I, a humble but groundbreaking start to the personal-computer revolution.</p>
+
+        <h3>1977 – Apple II & Incorporation</h3>
+        <p>Apple was incorporated, and the Apple II, one of the first mass-market personal computers, was
+            launched—marking Apple’s first big commercial success.</p>
+
+        <h3>1980 – IPO & Success</h3>
+        <p>Apple went public, and the stock surge made Jobs a millionaire in his mid-20s. The company’s growth exploded
+            from there.</p>
+
+        <h3>1983–84 – Lisa and Macintosh</h3>
+        <p>Jobs led the Macintosh project after being inspired by Xerox PARC's GUI in 1979. The Macintosh launched in
+            January 1984 with a flamboyant Super Bowl ad and became an icon for graphical computing.</p>
+
+        <h3>1985 – Ousted & Founding NeXT</h3>
+        <p>A power struggle with CEO John Sculley led to Jobs being ousted from Apple. He resigned in September and went
+            on to found NeXT Inc., a workstation company aimed at academia and business.</p>
+
+        <h3>1986 – Pixar Acquisition</h3>
+        <p>Jobs purchased The Graphics Group from Lucasfilm for $10 million, which later became Pixar Animation Studios.
+            Under his leadership, Pixar produced groundbreaking animated films like Toy Story.</p>
+
+        <h3>1996–97 – Return to Apple</h3>
+        <p>Apple bought NeXT in 1996 for $429 million, bringing Jobs back to the company. By 1997, he became interim CEO
+            and began turning Apple around with bold product designs and marketing.</p>
+
+        <h3>1998 – iMac Launch</h3>
+        <p>The iMac G3 was launched, marking Apple’s revival with its colorful, all-in-one design and focus on user
+            friendliness.</p>
+
+        <h3>2001 – iPod & Digital Hub Strategy</h3>
+        <p>Jobs introduced the iPod, revolutionizing the music industry. Apple shifted towards being a "digital hub"
+            for consumers.</p>
+
+        <h3>2007 – iPhone Revolution</h3>
+        <p>Jobs unveiled the iPhone, combining a phone, iPod, and internet device into one—forever changing the tech
+            landscape.</p>
+
+        <h3>2010 – iPad Launch</h3>
+        <p>The iPad was introduced, creating a new category between smartphones and laptops, and further cementing
+            Apple’s dominance in consumer electronics.</p>
+
+        <h3>2011 – Resignation & Passing</h3>
+        <p>Due to health issues, Jobs resigned as Apple CEO in August 2011, naming Tim Cook as his successor. He passed
+            away on October 5, 2011, at the age of 56, leaving behind a legacy that continues to shape technology and
+            design.</p>
+
+        <h3>Witness the Genius</h3>
+                <div class="premium-video-wrapper">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CeSAjK2CBEA?si=WPle5DIwVrCMcDKf"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+    </main>
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.apple.com/" target="_blank" title="Apple"><i class="fab fa-apple"></i></a>
+            <a href="https://www.pixar.com/" target="_blank" title="Pixar"><i class="fab fa-pix"></i></a>
+            <a href="https://twitter.com/SteveJobsTheMan" target="_blank" title="Steve Jobs Twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    <script>
+    // Section fade-in on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('main > *').forEach(el => {
+            if (!el.classList.contains('premium-video-wrapper')) {
+                el.classList.add('fade-in-section');
+            }
+        });
+        function revealSections() {
+            document.querySelectorAll('.fade-in-section').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealSections);
+        revealSections();
+    });
+
+    // Interactive timeline data
+    const timelineData = [
+        { year: '1955', desc: 'Born in San Francisco.' },
+        { year: '1972', desc: 'Reed College & Departure.' },
+        { year: '1974', desc: 'Atari & Homebrew Club.' },
+        { year: '1976', desc: 'Co-founds Apple.' },
+        { year: '1977', desc: 'Apple II & Incorporation.' },
+        { year: '1980', desc: 'Apple IPO & Success.' },
+        { year: '1983–84', desc: 'Lisa and Macintosh.' },
+        { year: '1985', desc: 'Ousted & Founding NeXT.' },
+        { year: '1986', desc: 'Pixar Acquisition.' },
+        { year: '1996–97', desc: 'Return to Apple.' },
+        { year: '1998', desc: 'iMac Launch.' },
+        { year: '2001', desc: 'iPod & Digital Hub.' },
+        { year: '2007', desc: 'iPhone Revolution.' },
+        { year: '2010', desc: 'iPad Launch.' },
+        { year: '2011', desc: 'Resignation & Passing.' }
+    ];
+    function renderTimeline() {
+        const timeline = document.getElementById('timeline');
+        if (!timeline) return;
+        timeline.innerHTML = '';
+        timelineData.forEach((event, i) => {
+            const div = document.createElement('div');
+            div.className = 'timeline-event';
+            div.innerHTML = `<div class="year">${event.year}</div><div class="desc">${event.desc}</div>`;
+            div.addEventListener('mouseenter', () => div.classList.add('active'));
+            div.addEventListener('mouseleave', () => div.classList.remove('active'));
+            timeline.appendChild(div);
+        });
+    }
+    document.addEventListener('DOMContentLoaded', renderTimeline);
+    </script>
+        Author : Anmol <br>
+        <a href="https://www.apple.com/">Think Different. Visit Apple</a><br>
+        &copy; 2025 Steve Jobs Tribute. All Rights Reserved.
+    </footer>
+</body>
+
+</html>
