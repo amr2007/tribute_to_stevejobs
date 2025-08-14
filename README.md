@@ -1,4 +1,7 @@
+
 # Steve Jobs Tribute Page
+
+[🌐 Visit the Live Website](https://amr2007.github.io/tribute_to_stevejobs/)
 
 A modern, interactive tribute website dedicated to Steve Jobs. This page features:
 
@@ -9,7 +12,6 @@ A modern, interactive tribute website dedicated to Steve Jobs. This page feature
 
 ## How to Use
 Open `index.html` in your browser to view the tribute page.
-**OR**
 
 ---
 Created with ❤️ to honor the legacy of Steve Jobs.
